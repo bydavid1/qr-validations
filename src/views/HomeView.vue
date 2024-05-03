@@ -1,7 +1,7 @@
 <template>
   <main class="bg-dark main-container min-vh-100">
     <div class="container-xl">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 m-5">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 m-5 w-auto">
         <div class="col">
           <div class="d-grid gap-2 mt-2">
             <button class="btn btn-primary" type="button" @click="openCamera">
@@ -164,9 +164,12 @@
 </template>
 
 <script setup>
-import { ref, watchEffect, computed } from "vue";
+import { ref, watchEffect, computed, onMounted } from "vue";
 import { api } from "../api/client";
 import { QrcodeStream } from "vue-qrcode-reader";
+import router from "../router";
+
+
 
 const ondecode = ref("");
 
@@ -295,6 +298,7 @@ const getStatus = async () => {
   }
 };
 
+/**hooks */
 watchEffect(() => {
   if (alert.value) {
     setTimeout(() => {
@@ -302,6 +306,12 @@ watchEffect(() => {
     }, 3000);
   }
 });
+
+onMounted(()=>{
+  if(!localStorage.getItem("auth")){
+    router.replace({name:'login'})
+  }
+})
 </script>
 
 <style scoped>
