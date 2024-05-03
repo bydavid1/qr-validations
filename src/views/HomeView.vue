@@ -160,6 +160,9 @@
         <div style="margin-left: 1rem">Código QR verificado exitosamente !</div>
       </div>
     </div>
+    <div class="fixed-bottom" style="margin-bottom: 1rem; margin-left: 75%;">
+      <button type="button" class="btn btn-warning" @click="logout">Cerrar Sesión</button>
+    </div>
   </main>
 </template>
 
@@ -298,6 +301,10 @@ const getStatus = async () => {
   }
 };
 
+const logout = ()=>{
+  localStorage.removeItem("auth")
+  router.replace({name:'login'})
+}
 /**hooks */
 watchEffect(() => {
   if (alert.value) {
